@@ -1,6 +1,20 @@
+#    Friendly Telegram (telegram userbot)
+#    Copyright (C) 2018-2019 The Authors
 
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
 
-from .. import loader
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
+from .. import loader, utils
 
 import logging
 import random
@@ -9,15 +23,12 @@ import random
 logger = logging.getLogger(__name__)
 
 
-def register(cb):
-    cb(InsultMod())
-
-
+@loader.tds
 class InsultMod(loader.Module):
     """Shouts at people"""
-    def __init__(self):
-        self.name = _("Insulter")
+    strings = {"name": "Insulter"}
 
+    @loader.unrestricted
     async def insultcmd(self, message):
         """Use when angry"""
         # TODO localisation?
@@ -36,6 +47,6 @@ class InsultMod(loader.Module):
         adjective_mid = random.choice(adjectives_mid)
         noun = random.choice(nouns)
         end = random.choice(ends)
-        insult = start + " " + adjective_start + " " + adjective_mid + (" " if adjective_mid else "") + noun + noun + end
+        insult = start + " " + adjective_start + " " + adjective_mid + (" " if adjective_mid else "") + noun + end
         logger.debug(insult)
-        await message.edit(insult)
+        await utils.answer(message, insult)
