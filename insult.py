@@ -47,6 +47,6 @@ class InsultMod(loader.Module):
         adjective_mid = random.choice(adjectives_mid)
         noun = random.choice(nouns)
         end = random.choice(ends)
-        insult = start + " " + adjective_start + " " + adjective_mid + (" " if adjective_mid else "") + noun + end
+        insult = start + " " + adjective_start + " " + adjective_mid + (" " if adjective_mid else "") + noun + " " + end
         logger.debug(insult)
         await utils.answer(message, insult)
